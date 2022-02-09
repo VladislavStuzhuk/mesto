@@ -1,0 +1,7 @@
+.elements__discription{
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  height: 79px;
+  align-items: center;
+}
