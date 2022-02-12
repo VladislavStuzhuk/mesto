@@ -1,20 +1,24 @@
-let content = document.querySelector(".content");
-let editButton = content.querySelector(".profile__edit-button");
-let popup = document.querySelector('.popup');
-let closeButton = document.querySelector('.popup__close-icon');
-let author = content.querySelector('.profile__author');
-let discription = content.querySelector('.profile__subtitle');
-let formName = document.querySelector('.popup__form_name');
-let formDiscription = document.querySelector('.popup__form_discription');
-let likeBtn = content.querySelectorAll('.elements__like-button');
+const content = document.querySelector(".content");
+const editButton = content.querySelector(".profile__edit-button");
+const popup = document.querySelector('.popup');
+const popupForm = document.querySelector('.popup__container');
+const closeButton = document.querySelector('.popup__close-icon');
+const author = content.querySelector('.profile__author');
+const discription = content.querySelector('.profile__subtitle');
+const formName = document.querySelector('.popup__input_text_name');
+const formDiscription = document.querySelector('.popup__input_text_discription');
+const likeBtn = content.querySelectorAll('.card__like-button');
 
 function setValue(){
   formName.value = author.textContent;
   formDiscription.value = discription.textContent;
 }
-function popupOpen(){
+function openPopup(){
   setValue();
-  popup.classList.toggle('popup_opened');
+  popup.classList.add('popup_opened');
+}
+function closePopup(){
+  popup.classList.remove('popup_opened');
 }
 
 function formSubmitHandler(evt){
@@ -22,16 +26,16 @@ function formSubmitHandler(evt){
   author.textContent = formName.value;
   discription.textContent = formDiscription.value;
   console.log('submit');
-  popupOpen();
+  closePopup();
 }
 
-editButton.addEventListener('click', popupOpen);
-closeButton.addEventListener('click', popupOpen);
-popup.addEventListener('submit', formSubmitHandler);
+editButton.addEventListener('click', openPopup);
+closeButton.addEventListener('click', closePopup);
+popupForm.addEventListener('submit', formSubmitHandler);
 
 for (let i = 0; i < likeBtn.length; i++){
   likeBtn[i].addEventListener('click', function likeActiv(){
-    likeBtn[i].classList.toggle('elements__like-button_active');
+    likeBtn[i].classList.toggle('card__like-button_active');
   });
 }
  
