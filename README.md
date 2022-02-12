@@ -14,4 +14,4 @@ ___
 * Хранение данных на сервере
 ___
 # GitHub
-# https://github.com/VladislavStuzhuk
+# https://vladislavstuzhuk.github.io/mesto/index.html
