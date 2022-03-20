@@ -24,6 +24,7 @@ const initialCards = [
     link: 'images/Slayer-main.jpg'
   },
 ]; 
+const page = document.querySelector('.page');
 const content = document.querySelector(".content");
 const editProfileButton = content.querySelector(".profile__edit-button");
 const popupProfile = document.querySelector('.popup-profile');
@@ -38,14 +39,21 @@ function openPopupProfile(){
   formProfileSubtitle.value =  profileSubtitle.textContent;
   openPopup(popupProfile);
 }
-
+function closeByEsc(popup){
+  page.addEventListener('keydown', function handler(evt){
+    if (evt.key === 'Escape'){ 
+      closePopup(popup);
+    };
+    if (!popup.classList.contains('popup_opened'))  
+      this.removeEventListener('keydown', handler);
+  });
+}
 function openPopup(popup){
   popup.classList.add('popup_opened');
-  
+  closeByEsc(popup);
 }
 function closePopup(popup){
   popup.classList.remove('popup_opened');
-  
 }
 
 function submitProfileForm(evt){
@@ -62,7 +70,13 @@ popupProfileForm.addEventListener('submit', submitProfileForm);
 const closeButton = document.querySelectorAll('.popup__close-icon');
 for (let i = 0; i < closeButton.length; i++){
   closeButton[i].onclick = function(evt){
-  closePopup(evt.target.closest('.popup'));
+    closePopup(evt.target.closest('.popup'));
+}
+}
+const popupOverlay = document.querySelectorAll('.popup');
+for (let i = 0; i < popupOverlay.length; i++){
+  popupOverlay[i].onclick = function(evt){
+    closePopup(evt.target);
 }
 }
 
@@ -83,6 +97,7 @@ addButon.addEventListener('click', function(){
   popupImageInputName.value = '';
   popupImageInputLink.value = '';
   openPopup(popupPlace);
+  popupPlaceForm.querySelector('.popup__submit-botton').disabled = true;
 })
 
 function createCard(nameValue, imgValue){
@@ -120,4 +135,3 @@ for (let i = 0; i < initialCards.length; i++ ){
   const card = createCard(initialCards[i].name, initialCards[i].link);
   addCard(card, cardsContainer);
 };
-

@@ -38,8 +38,10 @@
         <form class="popup__container">
           <button class="popup__close-icon" type="button"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input class="popup__input popup__input_text_name" type="text" placeholder="Имя" maxlength="20">
-          <input class="popup__input popup__input_text_discription" type="text" placeholder="Описание" maxlength="300">
+          <input class="popup__input popup__input_text_name" id="name-input" type="text" placeholder="Имя" minlength="2" maxlength="40" required>
+          <span class="popup__input-error name-input-error">123</span>
+          <input class="popup__input popup__input_text_discription" id="discription-input" type="text" placeholder="Описание" minlength="2" maxlength="200" required>
+          <span class="popup__input-error discription-input-error">123</span>
           <button class="popup__submit-botton" type="submit">Сохранить</button>     
         </form>
       </div>
@@ -54,9 +56,11 @@
         <form class="popup__container">
           <button class="popup__close-icon" type="button"></button>
           <h2 class="popup__title">Новое место</h2>
-          <input class="popup__input popup__input_img_name" type="text" placeholder="Название" maxlength="20">
-          <input class="popup__input popup__input_img_link" type="text" placeholder="Ссылка на картинку" maxlength="300">
-          <button class="popup__submit-botton" type="submit">Создать</button>     
+          <input class="popup__input popup__input_img_name" id="img-name-input" type="text" placeholder="Название" minlength="2" maxlength="30" required>
+          <span class="popup__input-error img-name-input-error"></span>
+          <input class="popup__input popup__input_img_link" id="url-input" type="url" placeholder="Ссылка на картинку" maxlength="300" required>
+          <span class="popup__input-error url-input-error">456</span>
+          <button class="popup__submit-botton" type="submit" >Создать</button>     
         </form>
       </div>
   <template id="card-template">
@@ -70,5 +74,6 @@
     </article>
   </template>
     <script src="scripts/index.js"></script>
+    <script src="scripts/validate.js"></script>
   </body>
 </html>

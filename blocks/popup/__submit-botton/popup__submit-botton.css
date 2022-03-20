@@ -3,7 +3,7 @@
   height: 50px;
   padding: 0;
   border: none;
-  margin: 48px 36px 0;
+  margin: 18px 36px 0;
   color: #fff;
   font-weight: 400;
   font-size: 18px;
@@ -17,7 +17,7 @@
   .popup__submit-botton{
     width: 238px;
     height: 46px;
-    margin: 45px 22px 0;
+    margin: 15px 22px 0;
     font-size: 14px;
     line-height: 17px;
   }
@@ -25,4 +25,11 @@
 .popup__submit-botton:hover{
   background: rgba(0, 0, 0, 0.8);
   
+}
+.popup__submit-botton:disabled{
+  opacity: 0.2;
+  cursor: default;
+  color: #000;
+  background: #fff;
+  border: 1px solid #000000;
 }
