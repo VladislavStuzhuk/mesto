@@ -1,29 +1,8 @@
-const initialCards = [
-  {
-    name: 'Нью-Йорк',
-    link: 'images/maddison-square.jpg'
-  },
-  {
-    name: 'Инглвуд',
-    link: 'images/maxresdefault.jpg'
-  },
-  {
-    name: 'Лас-Вегас',
-    link: 'images/slayer-madisonsquaregarden-70.jpg'
-  },
-  {
-    name: 'Колорадо-Спрингс',
-    link: 'images/NYC.jpg'
-  },
-  {
-    name: 'Вакен',
-    link: 'images/Wacken-Festivals-Cancelled-2020.jpg'
-  },
-  {
-    name: 'Луисвилл',
-    link: 'images/Slayer-main.jpg'
-  },
-]; 
+
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+import {initialCards, validationParams} from './components.js';
+
 const page = document.querySelector('.page');
 const content = document.querySelector(".content");
 const profileEditButton = content.querySelector(".profile__edit-button");
@@ -78,15 +57,12 @@ popupOverlays.forEach((overlay) => {
   });
 });
 
-
 const popupImage = document.querySelector('.popup-image')
 const cardsContainer = document.querySelector('.elements');
 const popupImageImg = document.querySelector('.popup-image__image');
 const popupImageTitle = document.querySelector('.popup-image__discription');
 const popupImageInputName = document.querySelector('.popup__input_img_name');
 const popupImageInputLink = document.querySelector('.popup__input_img_link');
-
-
 const popupPlace = document.querySelector('.popup-place');
 const popupPlaceForm = popupPlace.querySelector('.popup__container');
 const addButon = document.querySelector('.profile__add-button')
@@ -96,39 +72,29 @@ addButon.addEventListener('click', function(){
   openPopup(popupPlace);
   popupPlaceForm.querySelector('.popup__submit-botton').disabled = true;
 })
-
-function createCard(nameValue, imgValue){
-  const cardTemplate = document.querySelector('#card-template').content;
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  cardElement.querySelector('.card__image').setAttribute('src', imgValue);
-  cardElement.querySelector('.card__image').setAttribute('alt', nameValue);
-  cardElement.querySelector('.card__title').textContent =  nameValue;
-  cardElement.querySelector('.card__image').addEventListener('click', function(evt){
-      const target = evt.target;
-      const discription = target.closest('.card');
-      popupImageTitle.textContent = discription.querySelector('.card__title').textContent;
-      popupImageImg.setAttribute('src', target.getAttribute('src'));
-      openPopup(popupImage);
-   })
-  cardElement.querySelector('.card__delete-button').addEventListener('click', function(evt){
-    evt.target.closest('.card').remove();
-  });
-  cardElement.querySelector('.card__like-button').addEventListener('click', function(evt){
-    evt.target.classList.toggle('card__like-button_active');
-  });
-  return cardElement
+function handleOpenPopup(name, img){
+  popupImageImg.src = img;
+  popupImageTitle.textContent = name;
+  openPopup(popupImage);
 }
-function addCard(card, container) {
-    container.prepend(card);
-} 
-popupPlaceForm.addEventListener('submit', function(evt){
-  evt.preventDefault();
-  const card = createCard(popupImageInputName.value, popupImageInputLink.value);
-  addCard(card, cardsContainer);
-  closePopup(popupPlace);
+
+initialCards.forEach((item) => {
+  const card = new Card(item.name, item.image, handleOpenPopup);
+  const cardElement = card.generateCard();
+  document.querySelector('.elements').append(cardElement);
 });
 
-for (let i = 0; i < initialCards.length; i++ ){
-  const card = createCard(initialCards[i].name, initialCards[i].link);
-  addCard(card, cardsContainer);
-};
+popupPlaceForm.addEventListener('submit', function(evt){
+  evt.preventDefault();
+  const card = new Card(popupImageInputName.value, popupImageInputLink.value, handleOpenPopup);
+  const cardElement = card.generateCard();
+  document.querySelector('.elements').append(cardElement);
+  closePopup(popupPlace);
+});
+//
+//Валидация форм 
+//
+const validProfile = new FormValidator(validationParams, popupProfileForm);
+validProfile.enableValidation();
+const validAddPlace = new FormValidator(validationParams, popupPlaceForm);
+validAddPlace.enableValidation();
