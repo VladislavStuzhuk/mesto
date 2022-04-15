@@ -45,14 +45,14 @@ popupProfileForm.addEventListener('submit', submitProfileForm);
 
 
 const closeButtons = document.querySelectorAll('.popup__close-icon');
-for (let i = 0; i < closeButtons.length; i++){
-  closeButtons[i].onclick = function(evt){
-    closePopup(evt.target.closest('.popup'));
-}
-}
+closeButtons.forEach((evt) => {
+  evt.addEventListener('click', (evt) =>{
+    closePopup(evt.target.closest('.popup')); 
+  });
+});
 const popupOverlays = document.querySelectorAll('.popup');
 popupOverlays.forEach((overlay) => {
-  overlay.addEventListener('mousedown', function(evt){
+  overlay.addEventListener('mousedown', (evt) => {
     closePopup(evt.target);
   });
 });
@@ -67,26 +67,29 @@ const popupPlace = document.querySelector('.popup-place');
 const popupPlaceForm = popupPlace.querySelector('.popup__container');
 const addButon = document.querySelector('.profile__add-button')
 
-addButon.addEventListener('click', function(){
+addButon.addEventListener('click', () => {
   popupPlaceForm.reset();
   openPopup(popupPlace);
   popupPlaceForm.querySelector('.popup__submit-botton').disabled = true;
 })
 function handleOpenPopup(name, img){
   popupImageImg.src = img;
+  popupImageImg.setAttribute('alt', name);
   popupImageTitle.textContent = name;
   openPopup(popupImage);
 }
 
+function newCard(name, img, handleOpenPopup){
+  return new Card(name, img, handleOpenPopup);
+};
 initialCards.forEach((item) => {
-  const card = new Card(item.name, item.image, handleOpenPopup);
+  const card = newCard(item.name, item.image, handleOpenPopup);
   const cardElement = card.generateCard();
   document.querySelector('.elements').append(cardElement);
 });
-
-popupPlaceForm.addEventListener('submit', function(evt){
+popupPlaceForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  const card = new Card(popupImageInputName.value, popupImageInputLink.value, handleOpenPopup);
+  const card = newCard(popupImageInputName.value, popupImageInputLink.value, handleOpenPopup);
   const cardElement = card.generateCard();
   document.querySelector('.elements').append(cardElement);
   closePopup(popupPlace);

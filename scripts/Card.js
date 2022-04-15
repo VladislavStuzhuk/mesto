@@ -20,10 +20,11 @@ export class Card {
   }
   _removeCard(){
     this._element.remove();
+    this._element = null;
   }
   
   _setEventListeners(){
-    this._element.querySelector('.card__image').addEventListener('click', () => {
+    this._cardImage.addEventListener('click', () => {
      this._handleOpenPopup(this._name, this._image);
     });
     this._element.querySelector('.card__like-button').addEventListener('click', () => {
@@ -36,9 +37,10 @@ export class Card {
   }
   generateCard() {
     this._element = this._getTemplate();
+    this._cardImage = this._element.querySelector('.card__image'); 
     this._setEventListeners();
-    this._element.querySelector('.card__image').src = this._image;
-    this._element.querySelector('.card__image').setAttribute('alt', this._name);
+    this._cardImage.src = this._image;
+    this._cardImage.setAttribute('alt', this._name);
     this._element.querySelector('.card__title').textContent = this._name;
     return this._element;
   }
