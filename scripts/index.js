@@ -91,7 +91,7 @@ popupPlaceForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const card = newCard(popupImageInputName.value, popupImageInputLink.value, handleOpenPopup);
   const cardElement = card.generateCard();
-  document.querySelector('.elements').append(cardElement);
+  document.querySelector('.elements').prepend(cardElement);
   closePopup(popupPlace);
 });
 //
