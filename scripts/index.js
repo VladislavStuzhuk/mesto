@@ -79,18 +79,17 @@ function handleOpenPopup(name, img){
   openPopup(popupImage);
 }
 
-function newCard(name, img, handleOpenPopup){
-  return new Card(name, img, handleOpenPopup);
+function generateNewCard(name, img, handleOpenPopup){
+  const card = new Card(name, img, handleOpenPopup);
+  return card.generateCard();
 };
 initialCards.forEach((item) => {
-  const card = newCard(item.name, item.image, handleOpenPopup);
-  const cardElement = card.generateCard();
+  const cardElement = generateNewCard(item.name, item.image, handleOpenPopup);
   document.querySelector('.elements').append(cardElement);
 });
 popupPlaceForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  const card = newCard(popupImageInputName.value, popupImageInputLink.value, handleOpenPopup);
-  const cardElement = card.generateCard();
+  const cardElement = generateNewCard(popupImageInputName.value, popupImageInputLink.value, handleOpenPopup);
   document.querySelector('.elements').prepend(cardElement);
   closePopup(popupPlace);
 });
