@@ -1,7 +1,7 @@
 
 export class Card {
   constructor(name, image, handleOpenPopup) {
-    this._name = name
+    this._name = name;
     this._image = image;
     this._handleOpenPopup = handleOpenPopup;
   }

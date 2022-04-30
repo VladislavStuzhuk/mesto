@@ -1,27 +1,34 @@
+import img1 from '../images/maddison-square.jpg';
+import img2 from '../images/maxresdefault.jpg';
+import img3 from '../images/slayer-madisonsquaregarden-70.jpg';
+import img4 from '../images/NYC.jpg';
+import img5 from '../images/Wacken-Festivals-Cancelled-2020.jpg';
+import img6 from '../images/Slayer-main.jpg';
+
 export const initialCards = [
   {
     name: 'Нью-Йорк',
-    image: 'images/maddison-square.jpg'
+    image: img1
   },
   {
     name: 'Инглвуд',
-    image: 'images/maxresdefault.jpg'
+    image: img2
   },
   {
     name: 'Лас-Вегас',
-    image: 'images/slayer-madisonsquaregarden-70.jpg'
+    image: img3
   },
   {
     name: 'Колорадо-Спрингс',
-    image: 'images/NYC.jpg'
+    image: img4
   },
   {
     name: 'Вакен',
-    image: 'images/Wacken-Festivals-Cancelled-2020.jpg'
+    image: img5
   },
   {
     name: 'Луисвилл',
-    image: 'images/Slayer-main.jpg'
+    image: img6
   },
 ]; 
 export const validationParams  = {

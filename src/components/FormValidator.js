@@ -49,7 +49,6 @@ export class FormValidator{
     this._targetForm.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });     
-    console.log(  this._targetForm);
     this._setEventListener(this._targetForm);
   }
 }
