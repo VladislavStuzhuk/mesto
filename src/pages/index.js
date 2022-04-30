@@ -1,8 +1,8 @@
 
 import './index.css';
-import {Card} from '../components/Card.js';
-import {FormValidator} from '../components/FormValidator.js';
-import {initialCards, validationParams} from '../components/components.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import {initialCards, validationParams} from '../utils/constants.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -14,29 +14,26 @@ const content = document.querySelector(".content");
 const profileEditButton = content.querySelector(".profile__edit-button");
 const popupProfileForm = document.querySelector('.popup-profile').querySelector('.popup__container');
 
-
 const info = new UserInfo('.profile__author','.profile__subtitle');
 const popupProfile = new PopupWithForm('.popup-profile', (data) => {
-  info.setUserInfo(data['name-input'], data['discription-input'])
+  info.setUserInfo(data['name'], data['info'])
 });
 popupProfile.setEventListeners();
 profileEditButton.addEventListener('click',()=> {
   popupProfile.open(info.getUserInfo());
 });
 
-
-
 const cardsContainer = document.querySelector('.elements');
 const popupPlace = document.querySelector('.popup-place');
 const popupPlaceForm = popupPlace.querySelector('.popup__container');
-const addButon = document.querySelector('.profile__add-button')
+const buttonAddPlace = document.querySelector('.profile__add-button')
 
 const popupPl = new PopupWithForm('.popup-place', (data) => {
-  const cardElement = generateNewCard(data['img-name-input'], data['url-input'], handleOpenPopup);
-  document.querySelector('.elements').prepend(cardElement);
+  const cardElement = generateNewCard(data['imgInfo'], data['url'], handleOpenPopup);
+  cardList.addItem(cardElement);
 });
 popupPl.setEventListeners();
-addButon.addEventListener('click', () => {
+buttonAddPlace.addEventListener('click', () => {
   popupPl.open();
 })
 
@@ -50,8 +47,7 @@ function handleOpenPopup(name, img){
 const cardList = new Section({
   data: initialCards,
   renderer: (item) =>{
-   const card = new Card(item.name, item.image, handleOpenPopup);
-   const cardElement = card.generateCard();
+   const cardElement = generateNewCard(item.name, item.image, handleOpenPopup);
    cardList.addItem(cardElement);
   }
 }, cardsContainer);

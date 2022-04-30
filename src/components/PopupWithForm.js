@@ -1,14 +1,14 @@
 import Popup from './Popup.js';
 export default class PopupWithForm extends Popup {
-   constructor(selector, sumbitHandler){
-     super(selector);
-     this._sumbitHandler = sumbitHandler;
-     this._form = this._popup.querySelector('.popup__container');
-     this._inputList = Array.from(this._popup.querySelectorAll('.popup__input'))
-   }
+  constructor(selector, sumbitHandler){
+    super(selector);
+    this._sumbitHandler = sumbitHandler;
+    this._form = this._popup.querySelector('.popup__container');
+    this._inputList = Array.from(this._popup.querySelectorAll('.popup__input'))
+  }
   _getInputValues(){
     const values = {};
-    this._inputList.forEach((input) => values[input.id] = input.value);
+    this._inputList.forEach((input) => values[input.name] = input.value);
     return values; 
   }
   setEventListeners(){
@@ -22,11 +22,11 @@ export default class PopupWithForm extends Popup {
   open(data = {}){
     super.open();
     this._inputList.forEach(input => {
-      input.value = data[input.id] || '';
+      input.value = data[input.name] || '';
     })
   }
   close(){
     super.close();
     this._form.reset();
-}
+  }
 }
