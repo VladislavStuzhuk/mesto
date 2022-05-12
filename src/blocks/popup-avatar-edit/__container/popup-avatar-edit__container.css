@@ -1,0 +1,8 @@
+.popup-avatar-edit__container{
+  height: 272px;
+}
+@media screen and (max-width: 768px){
+  .popup-avatar-edit__container{
+    height: 240px;
+  }
+}

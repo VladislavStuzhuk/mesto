@@ -14,13 +14,15 @@
       <main class="main-content">
         
         <section class="profile">
-          <div class="profile__avatar"></div>
+          <div class="profile__avatar">
+            <button class="profile__avatar-edit-button"></button>
+          </div>
           <div class="profile__info">
             <div class="profile__title">
-              <h1 class="profile__author">Джефф Ханнеман</h1>
+              <h1 class="profile__author"></h1>
               <button class="profile__edit-button"></button>
             </div>
-            <p class="profile__subtitle">Музыкант, соло-гитарист</p>
+            <p class="profile__subtitle"></p>
           </div>
           <button class="profile__add-button"></button>  
         </section>
@@ -39,9 +41,9 @@
           <h2 class="popup__title">Редактировать профиль</h2>
           <input class="popup__input popup__input_text_name" id="name-input" name="name" type="text" placeholder="Имя" minlength="2" maxlength="40" required>
           <span class="popup__input-error name-input-error">123</span>
-          <input class="popup__input popup__input_text_discription" id="discription-input" name="info" type="text" placeholder="Описание" minlength="2" maxlength="200" required>
+          <input class="popup__input popup__input_text_discription" id="discription-input" name="about" type="text" placeholder="Описание" minlength="2" maxlength="200" required>
           <span class="popup__input-error discription-input-error">123</span>
-          <button class="popup__submit-botton" type="submit">Сохранить</button>     
+          <button class="popup__submit-botton popup-profile__submit-button" type="submit" value="Сохранить">Сохранить</button>     
         </form>
       </div>
       <div class="popup popup-image">
@@ -55,20 +57,39 @@
         <form class="popup__container">
           <button class="popup__close-icon" type="button"></button>
           <h2 class="popup__title">Новое место</h2>
-          <input class="popup__input popup__input_img_name" id="img-name-input" name="imgInfo" type="text" placeholder="Название" minlength="2" maxlength="30" required>
+          <input class="popup__input popup__input_img_name" id="img-name-input" name="name" type="text" placeholder="Название" minlength="2" maxlength="30" required>
           <span class="popup__input-error img-name-input-error"></span>
-          <input class="popup__input popup__input_img_link" id="url-input" type="url" name="url" placeholder="Ссылка на картинку" maxlength="300" required>
+          <input class="popup__input popup__input_img_link" id="url-input" type="url" name="link" placeholder="Ссылка на картинку" maxlength="300" required>
           <span class="popup__input-error url-input-error">456</span>
-          <button class="popup__submit-botton" type="submit" >Создать</button>     
+          <button class="popup__submit-botton popup-place__submit-button" type="submit" value="Создать">Создать</button>     
+        </form>
+      </div>
+      <div class="popup-confirm-delete popup">
+        <form class="popup__container popup-confirm-delete__container">
+          <h2 class="popup__title">Вы уверены?</h2>
+          <button class="popup__close-icon" type="button"></button>
+          <button class="popup__submit-botton popup-confirm-delete__button" type="submit" >Да</button>
+        </form>
+      </div>
+      <div class="popup-avatar-edit popup">
+        <form class="popup__container popup-avatar-edit__container">
+          <h2 class="popup__title">Обновить аватар</h2>
+          <button class="popup__close-icon" type="button"></button>
+          <input class="popup__input popup__input_avatar_link" id="url-input" type="url" name="avatar" placeholder="Ссылка на аватар">
+          <span class="popup__input-error url-input-error">1</span>
+          <button class="popup__submit-botton popup-avatar__submit-button" type="submit" value="Сохранить">Сохранить</button> 
         </form>
       </div>
   <template id="card-template">
     <article class="card">
       <button class = "card__delete-button"></button>
       <img class="card__image" src="images/NYC.jpg" alt="Прощальный ко  Колорадо">
-       <div class="card__discription">
-         <h2 class="card__title">Колорадо-Спрингс</h2>
-        <button class="card__like-button"></button>
+      <div class="card__discription">
+          <h2 class="card__title">Колорадо-Спрингс</h2>
+        <div class="card__like-container">
+          <button class="card__like-button"></button>
+          <p class="card__like-counter">1</p>
+        </div>    
       </div>
     </article>
   </template>

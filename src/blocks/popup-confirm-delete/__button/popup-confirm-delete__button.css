@@ -1,0 +1,8 @@
+.popup-confirm-delete__button{
+  margin: 38px 36px 0;
+}
+@media screen and (max-width: 768px){
+  .popup-confirm-delete__button{
+    margin: 35px 22px 0;
+  }
+}
