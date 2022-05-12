@@ -16,7 +16,7 @@ const profileEditButton = content.querySelector(".profile__edit-button");
 const popupProfileForm = document.querySelector('.popup-profile').querySelector('.popup__container');
 const buttonSubmitProfile = document.querySelector('.popup-profile__submit-button');
 const buttonSubmitPlace = document.querySelector('.popup-place__submit-button');
-const buttonSubmitAvatar = document.querySelector('.popup-avatar__submit-button');
+const buttonSubmitAvatar = document.querySelector('.popup-avatar-edit__submit-button');
 
 const info = new UserInfo('.profile__author','.profile__subtitle','.profile__avatar');
 const popupProfile = new PopupWithForm('.popup-profile', (data) => {
