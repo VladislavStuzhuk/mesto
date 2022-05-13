@@ -1,6 +1,6 @@
 
 export default class Card {
-  constructor(data, handleOpenPopup, handleDeletePopup, userId, api) {
+  constructor(data, handleOpenPopup, handleDeletePopup,setLike, setDislike, userId) {
     this._name = data.name;
     this._image = data.link;
     this._cardId = data._id;
@@ -9,7 +9,8 @@ export default class Card {
     this._likes = data.likes;
     this._handleOpenPopup = handleOpenPopup;
     this._handleDeletePopup = handleDeletePopup;
-    this._api = api;
+    this._setDislike = setDislike;
+    this._setLike = setLike;
   }
   _getTemplate() {
     const cardElement = document
@@ -27,19 +28,13 @@ export default class Card {
     }
   }
   _like(){
-    this._api.like(this._cardId)
-    .then(
-    this._buttonLike.classList.add('card__like-button_active'))
-    .catch(err => console.log(err));
+    this._setLike(this._buttonLike, this._cardId);
     if (this._likes.some(like => like._id === this._currentUser)){
     this._likeCounter.textContent = this._likes.length;
     } else this._likeCounter.textContent = this._likes.length + 1;
   }
   _dislike(){
-    this._api.dislike(this._cardId)
-    .then(
-    this._buttonLike.classList.remove('card__like-button_active'))
-    .catch(err => console.log(err));
+    this._setDislike(this._buttonLike, this._cardId);
     if (this._likes.some(like => like._id === this._currentUser)){
     this._likeCounter.textContent = this._likes.length - 1;
     } else this._likeCounter.textContent = this._likes.length
@@ -55,12 +50,6 @@ export default class Card {
     if (this._ownerId !== this._currentUser) {
       this._buttonDelete.style.display = "none";  
     }
-  }
-  _removeCard(){
-    this._api.deleteCard(this._cardId)
-    .then(
-    this._element.remove()
-    ).catch(err => console.log(err));
   }
   _setEventListeners(){
     this._cardImage.addEventListener('click', () => {

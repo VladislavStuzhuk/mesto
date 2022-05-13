@@ -18,12 +18,14 @@ export default class PopupWithForm extends Popup {
       this._sumbitHandler(this._getInputValues());
     });
   }
-  open(data = {}){
+  open(data) {
     super.open();
-    this._inputList.forEach(input => {
-      input.value = data[input.name] || '';
-    })
-  }
+    if (data) {
+      this._inputList.forEach(input => {
+        input.value = data[input.name];
+      })
+    }
+  } 
   close(){
     super.close();
     this._form.reset();
