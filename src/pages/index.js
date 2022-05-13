@@ -54,7 +54,7 @@ const popupPlace = new PopupWithForm('.popup-place', (data) => {
 });
 popupPlace.setEventListeners();
 buttonAddPlace.addEventListener('click', () => {
-  buttonSubmitPlace.disabled = true;
+  validAddPlace.toggleButtonState();
   popupPlace.open();
 })
 
@@ -76,22 +76,14 @@ const popupAvatar = new PopupWithForm('.popup-avatar-edit', data =>{
 });
 popupAvatar.setEventListeners();
 buttonEditAvatar.addEventListener('click', ()=>{
-  buttonSubmitAvatar.disabled = true;
+  validAvatar.toggleButtonState();
   popupAvatar.open();
 });
 
 const popupImg = new PopupWithImage('.popup-image');
 popupImg.setEventListeners();
 
-const popupDelete = new PopupWithConfirm('.popup-confirm-delete', (data) => {
-    api.deleteCard(data.id)
-    .then( () =>{
-      tempCard.deleteCard();
-      tempCard = null;
-      popupDelete.close();
-    }).catch(err => console.log(err))
-  }
-  )
+const popupDelete = new PopupWithConfirm('.popup-confirm-delete')
 const buttonDelete = document.querySelector('.popup-confirm-delete__button');
 popupDelete.setEventListeners();
 
@@ -115,7 +107,6 @@ function handleDeletePopup(card){
     api.deleteCard(card._cardId)
     .then( () =>{
       card.deleteCard();
-      card = null;
       popupDelete.close();
     }).catch(err => console.log(err))
   })

@@ -52,6 +52,7 @@ export default class Card {
   }
   deleteCard(){
     this._element.remove();
+    this._element = null;
   }
   _setLikeValue(isLiked){
     if (!isLiked){
