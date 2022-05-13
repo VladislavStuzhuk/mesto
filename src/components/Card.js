@@ -1,6 +1,6 @@
 
 export default class Card {
-  constructor(data, handleOpenPopup, handleDeletePopup,setLike, setDislike, userId) {
+  constructor(data, handleOpenPopup, {handleDeletePopup,setLike, setDislike}, userId) {
     this._name = data.name;
     this._image = data.link;
     this._cardId = data._id;
@@ -22,22 +22,10 @@ export default class Card {
   }
   _pressLikeButton(){
     if (this._buttonLike.classList.contains('card__like-button_active')){
-      this._dislike()
+      this._setDislike()
     } else {
-      this._like()
+      this._setLike()
     }
-  }
-  _like(){
-    this._setLike(this._buttonLike, this._cardId);
-    if (this._likes.some(like => like._id === this._currentUser)){
-    this._likeCounter.textContent = this._likes.length;
-    } else this._likeCounter.textContent = this._likes.length + 1;
-  }
-  _dislike(){
-    this._setDislike(this._buttonLike, this._cardId);
-    if (this._likes.some(like => like._id === this._currentUser)){
-    this._likeCounter.textContent = this._likes.length - 1;
-    } else this._likeCounter.textContent = this._likes.length
   }
   _сheckLikeStatus(){
     this._likes.forEach(like => {
@@ -59,8 +47,30 @@ export default class Card {
       this._pressLikeButton();
     });
     this._buttonDelete.addEventListener('click', () => {
-      this._handleDeletePopup(this._element, this._cardId);
+      this._handleDeletePopup();
     });
+  }
+  deleteCard(){
+    this._element.remove();
+  }
+  _setLikeValue(isLiked){
+    if (!isLiked){
+      if (this._likes.some(like => like._id === this._currentUser)){ 
+      this._likeCounter.textContent = this._likes.length; 
+      } else this._likeCounter.textContent = this._likes.length + 1; 
+    } else {
+        if (this._likes.some(like => like._id === this._currentUser)){ 
+        this._likeCounter.textContent = this._likes.length - 1; 
+      } else this._likeCounter.textContent = this._likes.length 
+    }
+  }
+  likeCard(){
+    this._buttonLike.classList.add('card__like-button_active');
+    this._setLikeValue(false);
+  }
+  dislikeCard(){
+    this._buttonLike.classList.remove('card__like-button_active');
+    this._setLikeValue(true);
   }
   generateCard() {
     this._element = this._getTemplate();

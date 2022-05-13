@@ -1,20 +1,21 @@
 import Popup from './Popup.js';
 export default class PopupWithConfirm extends Popup {
-  constructor(selector, sumbitHandler){
+  constructor(selector){
     super(selector);
-    this._sumbitHandler = sumbitHandler;
     this._form = this._popup.querySelector('.popup__container');
+  }
+  setSubmitHandler(sumbitHandler){
+    this._sumbitHandler = sumbitHandler;
   }
   setEventListeners(){
     super.setEventListeners();
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._sumbitHandler(this._data);
+      this._sumbitHandler();
     });
   }
-  open(data){
+  open(){
     super.open();
-    this._data = data;
   }
   close(){
     super.close();

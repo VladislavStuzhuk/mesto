@@ -54,6 +54,7 @@ const popupPlace = new PopupWithForm('.popup-place', (data) => {
 });
 popupPlace.setEventListeners();
 buttonAddPlace.addEventListener('click', () => {
+  buttonSubmitPlace.disabled = true;
   popupPlace.open();
 })
 
@@ -75,6 +76,7 @@ const popupAvatar = new PopupWithForm('.popup-avatar-edit', data =>{
 });
 popupAvatar.setEventListeners();
 buttonEditAvatar.addEventListener('click', ()=>{
+  buttonSubmitAvatar.disabled = true;
   popupAvatar.open();
 });
 
@@ -83,11 +85,11 @@ popupImg.setEventListeners();
 
 const popupDelete = new PopupWithConfirm('.popup-confirm-delete', (data) => {
     api.deleteCard(data.id)
-    .then( 
-      data.card.remove()
-    ).then(
-      popupDelete.close()
-    ).catch(err => console.log(err))
+    .then( () =>{
+      tempCard.deleteCard();
+      tempCard = null;
+      popupDelete.close();
+    }).catch(err => console.log(err))
   }
   )
 const buttonDelete = document.querySelector('.popup-confirm-delete__button');
@@ -105,28 +107,37 @@ const cardList = new Section({
   }
 }, cardsContainer);
 // функции для обработки карточки 
-
 function handleOpenPopup(name, img){
   popupImg.open(name, img)
 }
-function handleDeletePopup(card, id){
-  popupDelete.open({id, card});
+function handleDeletePopup(card){
+  popupDelete.setSubmitHandler(()=>{
+    api.deleteCard(card._cardId)
+    .then( () =>{
+      card.deleteCard();
+      card = null;
+      popupDelete.close();
+    }).catch(err => console.log(err))
+  })
+  popupDelete.open();
 }
-function setLike(btn, id){
-    api.like(id)
-    .then(
-    btn.classList.add('card__like-button_active'))
-    .catch(err => console.log(err));
+function setLike(card){
+    api.like(card._cardId)
+    .then(card.likeCard()
+    ).catch(err => console.log(err));
 }
-function setDislike(btn, id){
-    api.dislike(id)
-    .then(
-    btn.classList.remove('card__like-button_active'))
-    .catch(err => console.log(err));
+function setDislike(card){
+    api.dislike(card._cardId)
+    .then(card.dislikeCard()
+    ).catch(err => console.log(err));
 }
 
 function generateNewCard(data){ 
-  const card = new Card(data, handleOpenPopup, handleDeletePopup, setLike, setDislike, userId); 
+  const card = new Card(data, handleOpenPopup, {
+    handleDeletePopup: () => handleDeletePopup(card), 
+    setLike: () => setLike(card), 
+    setDislike: ()=> setDislike(card)
+  }, userId); 
   return card.generateCard(); 
 };
 //
